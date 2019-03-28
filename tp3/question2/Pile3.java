@@ -20,42 +20,45 @@ public class Pile3 implements PileI {
 	}
 
 	public Pile3(int taille) {
-		// traiter le cas <=0
-		// à compléter
+              if (taille <= 0) taille = CAPACITE_PAR_DEFAUT;
+              v =new Vector<Object>(taille);
 	}
 
 	public void empiler(Object o) throws PilePleineException {
-		// à compléter
+		if(estPleine())throw new PilePleineException();
+		v.add(o);
 	}
 
 	public Object depiler() throws PileVideException {
-		// à compléter
-		return null;
+              if(estVide())throw new PileVideException();	
+	      Object removed= v.lastElement();
+	      v.remove(v.size()-1);
+	      return removed;
 	}
 
 	public Object sommet() throws PileVideException {
-		// à compléter
-		return null;
+		if(estVide())throw new PileVideException();
+		return v.lastElement();
 	}
 
 	public int taille() {
-		// à compléter
-		return -1;
+		
+	    return v.size();
 	}
 
 	public int capacite() {
-		// à compléter
-		return -1;
+		
+	    return v.capacity();
 	}
 
 	public boolean estVide() {
-		// à compléter
-		return false;
+		
+	    return v.size()==0;
 	}
 
 	public boolean estPleine() {
-		// à compléter
-		return false;
+	    
+	    return v.size()==v.capacity();
 	}
 
 	public String toString() {
@@ -64,8 +67,17 @@ public class Pile3 implements PileI {
 	}
 
 	public boolean equals(Object o) {
-		// à compléter
-		return false;
+	      int capacite = this.capacite();
+              int taille = this.taille();
+        
+              PileI pile = (PileI) o;
+              if(super.equals(o)) return true;
+        
+              if(capacite != pile.capacite()) return false;
+              if(taille != pile.taille()) return false;
+        
+        
+              return true;
 	}
 
 	// fonction fournie

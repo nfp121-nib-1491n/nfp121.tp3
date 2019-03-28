@@ -61,20 +61,24 @@ public class Pile4 implements PileI, Cloneable {
 	public void empiler(Object o) throws PilePleineException {
 		if (estPleine())
 			throw new PilePleineException();
-		// à compléter
+		nombre= nombre+1;
+	        Maillon maillon = new Maillon(o, stk);
+                stk = maillon;
 	}
 
 	public Object depiler() throws PileVideException {
 		if (estVide())
 			throw new PileVideException();
-		// à compléter
-		return null;
+		Object object = stk.element();
+                stk = stk.suivant();
+                nombre= nombre-1;
+                return object;
 	}
 
 	public Object sommet() throws PileVideException {
 		if (estVide())
 			throw new PileVideException();
-		return null; // à compléter
+		return stk.element();
 	}
 
 	/**
@@ -83,7 +87,7 @@ public class Pile4 implements PileI, Cloneable {
 	 * @return vrai si la pile est vide, faux autrement
 	 */
 	public boolean estVide() {
-		return false; // à compléter
+		return stk == null;
 	}
 
 	/**
@@ -92,7 +96,7 @@ public class Pile4 implements PileI, Cloneable {
 	 * @return vrai si la pile est pleine, faux autrement
 	 */
 	public boolean estPleine() {
-		return false; // à compléter
+		return capacite ==nombre; 
 	}
 
 	/**
@@ -110,10 +114,17 @@ public class Pile4 implements PileI, Cloneable {
 
 	public boolean equals(Object o) {
 		if (o instanceof Pile4) {
-			// à compléter
-			return false;
+		   int capacite = this.capacite();
+                   int taille = this.taille();
+        
+                   PileI pile = (PileI) o;
+                   if(super.equals(o)) return true;
+        
+                   if(capacite != pile.capacite()) return false;
+                   if(taille != pile.taille()) return false;
+        
 		}
-		return false;
+		return true;
 	}
 
 	public int capacite() {
